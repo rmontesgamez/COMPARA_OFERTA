@@ -59,4 +59,33 @@ cliente = ''
 comparitvo =  datos_piezas('forma_pedido', cliente , oferta)
 
 if len(compartivo):
-    comparativo['SUMA'] = comparativo.apply(lambda fila: (fila['QPZ'] * (fila['PROPMAT'] + fila['VCORTE'] + fila['VTRATMTO']), axis = 1)
+    comparativo['SUMA'] = comparativo.apply(lambda fila: (fila['PROPMAT'] + fila['VCORTE'] + fila['VTRATMTO']), axis = 1)
+    comparitvo['SUBTOTAL_NO_VAC'] = comparitvo.apply(lambda fila: (fila['QPZ'] * fila['SUMA']), axis = 1)
+    comparitvo['SUBTOTAL_VAC'] = comparitvo.apply(lambda fila: (fila['QPZ'] * fila['VPU']), axis = 1)
+    comparitvo['DIFERENCIA'] = comparitvo.apply(lambda fila: (fila['SUBTOTAL_NO_VAC'] - fila['SUBTOTAL_VAC']), axis = 1)
+    volcador.volcado_con_pandas(ordenado,'OFERTA',ruta2, "b" )
+
+    wb = op.load_workbook(ruta2)
+    ws = wb.active
+
+
+    longitud = len(ws['A'])
+    print(longitud)
+
+    """lista_columna = ['H', 'I', 'J']
+    for letra in lista_columna:
+        campo = letra + '2:' + letra + str(longitud)
+
+        redFill = PatternFill(start_color='EE1111',
+                       end_color='EE1111',
+                       fill_type='solid')
+        greenfill = PatternFill(start_color='00F000',
+                       end_color='00F000',
+                       fill_type='solid' )
+        ws.conditional_formatting.add(campo,
+            FormulaRule(formula=[(letra +'2>0')], fill=redFill))
+        ws.conditional_formatting.add(campo,
+            FormulaRule(formula=[(letra + '2<=0')], fill=greenfill))"""
+
+    wb.save(ruta2)
+    #volcador.correo(ruta2,'RESP. AUTOMATICA', 'RESUMEN.xlsx', destino)
