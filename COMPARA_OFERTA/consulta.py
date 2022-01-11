@@ -221,12 +221,6 @@ HAVING (((PIEZAS.REF_C) Like '%""" + self.e_pedido + "%') AND ((PEDIDOS.COMPLETA
 
             return sql_query
 
-
-
-
-
-
-
         elif tipo == 'est_piezas_pleg':           
 
             sql_query=("""

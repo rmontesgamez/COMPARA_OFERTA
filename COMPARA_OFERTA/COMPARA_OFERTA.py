@@ -40,7 +40,7 @@ ruta2="C:\\activa\\"+ nombre_archivo
 if os.path.exists(ruta2):
     os.remove(ruta2)
 
-# print("INTRODUCIR NÚMERO OFERTA")
+# comprobamos el número oferta
 
 while true:
     try:
@@ -49,3 +49,14 @@ while true:
         print("OJO, DEBE SER UN NÚMERO")
         continue
     
+    if oferta > datos_piezas('max_oferta'):
+        print("NÚMERO OFERTA INCORRECTO")
+        continue
+    else:
+        break
+
+cliente = ''
+comparitvo =  datos_piezas('forma_pedido', cliente , oferta)
+
+if len(compartivo):
+    comparativo['SUMA'] = comparativo.apply(lambda fila: (fila['QPZ'] * (fila['PROPMAT'] + fila['VCORTE'] + fila['VTRATMTO']), axis = 1)
