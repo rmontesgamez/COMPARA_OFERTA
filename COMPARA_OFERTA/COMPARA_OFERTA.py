@@ -59,6 +59,7 @@ cliente = ''
 comparativo =  datos_piezas('forma_oferta', cliente , oferta)
 
 if len(comparativo):
+    comparativo.fillna(0)
     comparativo['SUMA'] = comparativo.apply(lambda fila: (fila['PROPMAT'] + fila['VCORTE'] + fila['VTRATMTO']), axis = 1)
     comparativo['SUBTOTAL_NO_VAC'] = comparativo.apply(lambda fila: (fila['QPZ'] * fila['SUMA']), axis = 1)
     comparativo['SUBTOTAL_VAC'] = comparativo.apply(lambda fila: (fila['QPZ'] * fila['VPU']), axis = 1)
@@ -76,16 +77,16 @@ if len(comparativo):
     for letra in lista_columna:
         campo = letra + '2:' + letra + str(longitud)
 
-        redFill = PatternFill(start_color='EE1111',
-                       end_color='EE1111',
+        redFill = PatternFill(start_color='FAA506',
+                       end_color='FAA506',
                        fill_type='solid')
         greenfill = PatternFill(start_color='00F000',
                        end_color='00F000',
                        fill_type='solid' )
         ws.conditional_formatting.add(campo,
-            FormulaRule(formula=[(letra +'2<0')], fill=redFill))
+            FormulaRule(formula=[(letra +'2<-1')], fill=redFill))
         ws.conditional_formatting.add(campo,
-            FormulaRule(formula=[(letra + '2>=0')], fill=greenfill))
+            FormulaRule(formula=[(letra + '2>=1')], fill=greenfill))
 
     wb.save(ruta2)
     #volcador.correo(ruta2,'RESP. AUTOMATICA', 'RESUMEN.xlsx', destino)
