@@ -41,29 +41,29 @@ if os.path.exists(ruta2):
     os.remove(ruta2)
 
 # comprobamos el número oferta
-
-while true:
+mayor_oferta = datos_piezas('max_oferta', '', '')
+while True:
     try:
-        oferta = int(input("INTRODUCIR NÚMERO OFERTA"))
+        oferta = int(input("INTRODUCIR NÚMERO OFERTA: "))
     except ValueError:
         print("OJO, DEBE SER UN NÚMERO")
         continue
     
-    if oferta > datos_piezas('max_oferta'):
+    if oferta > int(mayor_oferta.iloc[0]):
         print("NÚMERO OFERTA INCORRECTO")
         continue
     else:
         break
 
 cliente = ''
-comparitvo =  datos_piezas('forma_pedido', cliente , oferta)
+comparativo =  datos_piezas('forma_oferta', cliente , oferta)
 
-if len(compartivo):
+if len(comparativo):
     comparativo['SUMA'] = comparativo.apply(lambda fila: (fila['PROPMAT'] + fila['VCORTE'] + fila['VTRATMTO']), axis = 1)
-    comparitvo['SUBTOTAL_NO_VAC'] = comparitvo.apply(lambda fila: (fila['QPZ'] * fila['SUMA']), axis = 1)
-    comparitvo['SUBTOTAL_VAC'] = comparitvo.apply(lambda fila: (fila['QPZ'] * fila['VPU']), axis = 1)
-    comparitvo['DIFERENCIA'] = comparitvo.apply(lambda fila: (fila['SUBTOTAL_NO_VAC'] - fila['SUBTOTAL_VAC']), axis = 1)
-    volcador.volcado_con_pandas(ordenado,'OFERTA',ruta2, "b" )
+    comparativo['SUBTOTAL_NO_VAC'] = comparativo.apply(lambda fila: (fila['QPZ'] * fila['SUMA']), axis = 1)
+    comparativo['SUBTOTAL_VAC'] = comparativo.apply(lambda fila: (fila['QPZ'] * fila['VPU']), axis = 1)
+    comparativo['DIFERENCIA'] = comparativo.apply(lambda fila: (fila['SUBTOTAL_NO_VAC'] - fila['SUBTOTAL_VAC']), axis = 1)
+    volcador.volcado_con_pandas(comparativo,'OFERTA',ruta2, "b" )
 
     wb = op.load_workbook(ruta2)
     ws = wb.active
@@ -72,7 +72,7 @@ if len(compartivo):
     longitud = len(ws['A'])
     print(longitud)
 
-    """lista_columna = ['H', 'I', 'J']
+    lista_columna = ['N']
     for letra in lista_columna:
         campo = letra + '2:' + letra + str(longitud)
 
@@ -83,9 +83,9 @@ if len(compartivo):
                        end_color='00F000',
                        fill_type='solid' )
         ws.conditional_formatting.add(campo,
-            FormulaRule(formula=[(letra +'2>0')], fill=redFill))
+            FormulaRule(formula=[(letra +'2<0')], fill=redFill))
         ws.conditional_formatting.add(campo,
-            FormulaRule(formula=[(letra + '2<=0')], fill=greenfill))"""
+            FormulaRule(formula=[(letra + '2>=0')], fill=greenfill))
 
     wb.save(ruta2)
     #volcador.correo(ruta2,'RESP. AUTOMATICA', 'RESUMEN.xlsx', destino)

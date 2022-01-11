@@ -245,9 +245,7 @@ HAVING (((PIEZAS.REF_C) Like '%""" + self.e_pedido + "%') AND ((PEDIDOS.COMPLETA
         elif tipo == 'max_pieza':   
             sql_query=("""
            SELECT Max((PIEZAS.REF_N))  FROM PIEZAS;"""
-
-                 )
-
+                )
             return sql_query
 
 
@@ -255,9 +253,17 @@ HAVING (((PIEZAS.REF_C) Like '%""" + self.e_pedido + "%') AND ((PEDIDOS.COMPLETA
             sql_query=("""
             SELECT OFERTAS.OFERTA, PZOFERTA.REF, PIEZAS.REF_N, PIEZAS.C_VR, PZOFERTA.VPU, PZOFERTA.QPZ, PZOFERTA.PROPMAT, PZOFERTA.PR_TRANSPORTE, PIEZAS.VCORTE, PZOFERTA.VTRATMTO
 FROM CLIENTES INNER JOIN (PIEZAS INNER JOIN (OFERTAS INNER JOIN PZOFERTA ON OFERTAS.OFERTA = PZOFERTA.OFERTA) ON (PZOFERTA.C_VR = PIEZAS.C_VR) AND (PIEZAS.REF_C = PZOFERTA.REF)) ON (CLIENTES.CODIGO = PIEZAS.CODCLIENTE) AND (CLIENTES.CODIGO = OFERTAS.CODCLIENTE)
-WHERE (((OFERTAS.OFERTA)='""" + self.e_pedido + "'));"
+WHERE (((OFERTAS.OFERTA)='""" + str(self.e_pedido) + "'));"
 
                  )
+            return sql_query
+
+        elif tipo == 'max_oferta':   
+            sql_query=("""
+            SELECT MAX(OFERTAS.OFERTA) FROM OFERTAS;"""
+                )
+
+            return sql_query
 
 
     def fetch_query(self,frase):
