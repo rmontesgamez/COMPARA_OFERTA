@@ -59,11 +59,18 @@ cliente = ''
 comparativo =  datos_piezas('forma_oferta', cliente , oferta)
 
 if len(comparativo):
-    comparativo.fillna(0)
-    comparativo['SUMA'] = comparativo.apply(lambda fila: (fila['PROPMAT'] + fila['VCORTE'] + fila['VTRATMTO']), axis = 1)
+
+    #comparativo['TRAT'] = comparativo.apply(lambda fila: (0 if fila['VTRATMTO']<= 0 else fila['VTRATMTO'] ), axis = 1)
+    comparativo= comparativo.fillna(0)
+
+    comparativo['MATERIAL'] = comparativo.apply(lambda fila: (fila['VPZ'] if fila['VPZ']<=fila['PROPMAT']  else fila['PROPMAT'] ), axis = 1)
+    comparativo['SUMA'] = comparativo.apply(lambda fila: (fila['MATERIAL'] + fila['VCORTE'] + fila['VTRATMTO']), axis = 1)
     comparativo['SUBTOTAL_NO_VAC'] = comparativo.apply(lambda fila: (fila['QPZ'] * fila['SUMA']), axis = 1)
     comparativo['SUBTOTAL_VAC'] = comparativo.apply(lambda fila: (fila['QPZ'] * fila['VPU']), axis = 1)
     comparativo['DIFERENCIA'] = comparativo.apply(lambda fila: (fila['SUBTOTAL_NO_VAC'] - fila['SUBTOTAL_VAC']), axis = 1)
+    comparativo= comparativo.round(2)
+    comparativo.rename(columns={'VPZ':'MAT_MAN', 'QPZ':'CANT', 'C_VR':'VERSION'}, inplace=True)
+
     volcador.volcado_con_pandas(comparativo,'OFERTA',ruta2, "b" )
 
     wb = op.load_workbook(ruta2)
@@ -73,7 +80,7 @@ if len(comparativo):
     longitud = len(ws['A'])
     print(longitud)
 
-    lista_columna = ['N']
+    lista_columna = ['P']
     for letra in lista_columna:
         campo = letra + '2:' + letra + str(longitud)
 
