@@ -7,6 +7,7 @@ import pandas as pd
 import dato
 import os
 from openpyxl import Workbook
+import plano
 
 from openpyxl.styles import Color, PatternFill, Font, Border
 #from openpyxl.styles.differential import DifferentialStyle
@@ -58,7 +59,7 @@ while True:
 cliente = ''
 comparativo =  datos_piezas('forma_oferta', cliente , oferta)
 
-matriz=datos_conjuntos3.iloc[i]['MATRIZ']
+#matriz=datos_conjuntos3.iloc[i]['MATRIZ']
 
 extension = '.dxf'
 
@@ -87,7 +88,7 @@ if len(comparativo):
         resultado = dato.existe_archivo(referencia, '.dxf')
 
         if resultado:
-            ruta_archivo = 'C:\\activa\\PKS\\' + nombre + extension
+            ruta_archivo = 'C:\\activa\\PKS\\' + referencia + extension
             coef_aprovechamiento = plano.calcula_area(ruta_archivo)
             lista_coef_aprov =lista_coef_aprov.append(coef_aprovechamiento)
         else:
