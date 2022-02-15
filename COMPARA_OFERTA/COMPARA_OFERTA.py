@@ -58,7 +58,15 @@ while True:
 cliente = ''
 comparativo =  datos_piezas('forma_oferta', cliente , oferta)
 
+matriz=datos_conjuntos3.iloc[i]['MATRIZ']
+
+extension = '.dxf'
+
+
 if len(comparativo):
+    
+
+
 
     #comparativo['TRAT'] = comparativo.apply(lambda fila: (0 if fila['VTRATMTO']<= 0 else fila['VTRATMTO'] ), axis = 1)
     comparativo= comparativo.fillna(0)
@@ -69,8 +77,26 @@ if len(comparativo):
     comparativo['SUBTOTAL_VAC'] = comparativo.apply(lambda fila: (fila['QPZ'] * fila['VPU']), axis = 1)
     comparativo['DIFERENCIA'] = comparativo.apply(lambda fila: (fila['SUBTOTAL_NO_VAC'] - fila['SUBTOTAL_VAC']), axis = 1)
     comparativo= comparativo.drop(['MATERIAL2'], axis=1)
+    
+    comparativo['COEF_APROV'] = ''
+    lista_coef_aprov = []
+
+    for i in range(len(comparativo)-1):
+        referencia = comparativo.iloc[i]['REF_N']
+
+        resultado = dato.existe_archivo(referencia, '.dxf')
+
+        if resultado:
+            ruta_archivo = 'C:\\activa\\PKS\\' + nombre + extension
+            coef_aprovechamiento = plano.calcula_area(ruta_archivo)
+            lista_coef_aprov =lista_coef_aprov.append(coef_aprovechamiento)
+        else:
+            lista_coef_aprov =lista_coef_aprov.append(0)
+
+    comparativo['COEF_APROV'] = lista_coef_aprov
     comparativo= comparativo.round(2)
     comparativo.rename(columns={'VPZ':'MAT_MAN', 'QPZ':'CANT', 'C_VR':'VERSION'}, inplace=True)
+
 
     volcador.volcado_con_pandas(comparativo,'OFERTA',ruta2, "b" )
 

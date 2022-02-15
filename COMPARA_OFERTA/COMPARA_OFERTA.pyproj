@@ -25,6 +25,9 @@
     <Compile Include="consulta.py" />
     <Compile Include="CONSULTAS_RF.py" />
     <Compile Include="dato.py" />
+    <Compile Include="plano.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="volcador.py" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />

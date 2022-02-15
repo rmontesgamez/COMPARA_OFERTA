@@ -56,17 +56,17 @@ def pie_de_pagina(archivo, extension, num_pedido, cant_p, cliente_p, pza_pedido_
 def existe_archivo(nombre, extension):
 
     if nombre[:3]=='0000':
-        ruta= '\\\\192.168.8.2\\piezas\\00' + nombre[4:5] +'000\\' + nombre[3:] + extension
+        ruta= '\\\\192.168.8.2\\dxf\\00' + nombre[4:5] +'000\\' + nombre[3:] + extension
     
     elif nombre[:2] == '000':
-        ruta = '\\\\192.168.8.2\\piezas\\0' + nombre[3:5] +'000\\' + nombre[3:] + extension
+        ruta = '\\\\192.168.8.2\\dxf\\0' + nombre[3:5] +'000\\' + nombre[3:] + extension
    
     else:
-        ruta = '\\\\192.168.8.2\\piezas\\' + nombre[2:5] +'000\\' + nombre[2:] + extension
+        ruta = '\\\\192.168.8.2\\dxf\\' + nombre[2:5] +'000\\' + nombre[2:] + extension
 
     print (ruta)
 
-    ruta_destino= 'P:\\Personal Láser Guadalquivir\\RAFA\PLEGADO\\TEMP\\' + nombre + 'int' + extension
+    ruta_destino= 'C:\\activa\\PKS\\' + nombre + extension
     if not os.path.exists(ruta_destino):
 
         if os.path.exists(ruta):
