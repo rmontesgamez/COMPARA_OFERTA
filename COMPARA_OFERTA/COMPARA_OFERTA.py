@@ -8,6 +8,7 @@ import dato
 import os
 from openpyxl import Workbook
 import plano
+from pathlib import Path
 
 from openpyxl.styles import Color, PatternFill, Font, Border
 #from openpyxl.styles.differential import DifferentialStyle
@@ -40,6 +41,22 @@ nombre_archivo="COMPARA_OFERTA.xlsx"
 ruta2="C:\\activa\\"+ nombre_archivo
 if os.path.exists(ruta2):
     os.remove(ruta2)
+
+ruta_carpeta = "C:\\activa\\PKS\\"
+
+if os.path.isdir(ruta_carpeta):
+    directorio=Path(ruta_carpeta)
+
+    for fichero in directorio.iterdir():
+        if fichero.is_file():
+            try:
+                print(fichero)
+                os.remove(fichero)
+            except:
+                print("Error en fichero", fichero.name)
+
+
+
 
 # comprobamos el número oferta
 mayor_oferta = datos_piezas('max_oferta', '', '')

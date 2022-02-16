@@ -14,12 +14,28 @@ def calcula_area(referencia_plano):
     except ezdxf.DXFStructureError:
         print(f"Invalid or corrupted DXF file.")
         sys.exit(2)
+    """version_dxf=doc.header['$ACADVER']
+    doc.header['$ACADVER']='AC1018'
+    doc.save(encoding='utf-8')
+    version_dxf=doc.header['$ACADVER']
 
-    doc.save()
+    try:
+        doc = ezdxf.readfile(referencia_plano)
+    except IOError:
+        print(f"Not a DXF file or a generic I/O error.")
+        sys.exit(1)
+    except ezdxf.DXFStructureError:
+        print(f"Invalid or corrupted DXF file.")
+        sys.exit(2)"""
+
+
+
+
     msp = doc.modelspace()
 
     def distancia(punto_1, punto_2):
-        c = tuple(map(lambda x, y: round(y - x, 3), punto_1, punto_2))
+
+        c = tuple(map(lambda x, y: round(y - x, 3), punto_1.format('xyz'), punto_2))
         separacion = math.sqrt(pow(c[0],2) + pow(c[1],2))
         return separacion 
 
@@ -97,7 +113,7 @@ def calcula_area(referencia_plano):
                 if e.dxftype() == "LINE":
                     print(e)
                     hola = [e.dxf.start.xyz, e.dxf.end.xyz]
-                    poli = msp.add_lwpolyline(hola)
+                    poli = msp.add_polyline2d(hola)
                     msp.delete_entity(e)
                     i+=1
                     punto = poli[i]
@@ -122,7 +138,7 @@ def calcula_area(referencia_plano):
                     final = e.dxf.end.xyz +(0,0)
             
                     if distancia(punto, inicio)< 0.01:
-                        with poli.points("xyseb") as points:
+                        with poli.points("xyz") as points:
                             points.extend([final])
 
                         msp.delete_entity(e)
@@ -154,7 +170,7 @@ def calcula_area(referencia_plano):
                     else:
                         pass
 
-    for elemento in msp.query("LWPOLYLINE" or "CIRCLE"):
+    for elemento in msp.query("POLYLINE" or "CIRCLE"):
         if elemento.dxf.handle == max(diccionario_elementos, key=diccionario_elementos.get):
             elemento_exterior=elemento
         
