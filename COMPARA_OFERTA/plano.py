@@ -34,8 +34,19 @@ def calcula_area(referencia_plano):
     msp = doc.modelspace()
 
     def distancia(punto_1, punto_2):
+        if type(punto_1) == tuple and type(punto_2) == tuple:
+            c = tuple(map(lambda x, y: round(y - x, 3), punto_1, punto_2))
+        elif type(punto_1) == tuple:
+            c = tuple(map(lambda x, y: round(y - x, 3), punto_1, punto_2.format('xyz')))
+        elif type(punto_2) == tuple:
+            c = tuple(map(lambda x, y: round(y - x, 3), punto_1.format('xyz'), punto_2))
 
-        c = tuple(map(lambda x, y: round(y - x, 3), punto_1.format('xyz'), punto_2))
+
+        """if punto_1.dxftype()=='VERTEX':
+            c = tuple(map(lambda x, y: round(y - x, 3), punto_1.format('xyz'), punto_2))
+        else:
+            c = tuple(map(lambda x, y: round(y - x, 3), punto_1, punto_2))"""
+
         separacion = math.sqrt(pow(c[0],2) + pow(c[1],2))
         return separacion 
 
@@ -138,8 +149,8 @@ def calcula_area(referencia_plano):
                     final = e.dxf.end.xyz +(0,0)
             
                     if distancia(punto, inicio)< 0.01:
-                        with poli.points() as points:
-                            points.extend([final])
+                        poli.append_vertex(e.dxf.end.xyz)
+                            #points.extend([final])
 
                         msp.delete_entity(e)
                         if distancia(final, poli[0])<0.01 and i>1:  
