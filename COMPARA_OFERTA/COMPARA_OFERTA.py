@@ -97,7 +97,7 @@ if len(comparativo):
     comparativo= comparativo.drop(['MATERIAL2'], axis=1)
     
     comparativo['COEF_APROV'] = ''
-    lista_coef_aprov = []
+    lista_coef_aprov = list()
 
     for i in range(len(comparativo)-1):
         referencia = comparativo.iloc[i]['REF_N']

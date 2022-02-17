@@ -14,10 +14,10 @@ def calcula_area(referencia_plano):
     except ezdxf.DXFStructureError:
         print(f"Invalid or corrupted DXF file.")
         sys.exit(2)
-    """version_dxf=doc.header['$ACADVER']
-    doc.header['$ACADVER']='AC1018'
-    doc.save(encoding='utf-8')
-    version_dxf=doc.header['$ACADVER']
+    print(doc.header['$ACADVER'])
+    #oc.header['$ACADVER']='AC1018'
+    #doc.save(encoding='utf-8')
+    #version_dxf=doc.header['$ACADVER']
 
     try:
         doc = ezdxf.readfile(referencia_plano)
@@ -26,7 +26,7 @@ def calcula_area(referencia_plano):
         sys.exit(1)
     except ezdxf.DXFStructureError:
         print(f"Invalid or corrupted DXF file.")
-        sys.exit(2)"""
+        sys.exit(2)
 
 
 
@@ -68,7 +68,7 @@ def calcula_area(referencia_plano):
         return area_total
 
     def area_poli(polilinea):
-        area_dibujo = ezdxf.math.area(polilinea.vertices())
+        area_dibujo = ezdxf.math.area(polilinea.points())
         print (area_dibujo)
         return area_dibujo
 
