@@ -90,7 +90,7 @@ if len(comparativo):
     comparativo= comparativo.fillna(0)
     comparativo['MATERIAL2'] = comparativo.apply(lambda fila: (10000000000 if fila['VPZ']<=0  else fila['VPZ'] ), axis = 1)
     comparativo['MATERIAL'] = comparativo.apply(lambda fila: (fila['MATERIAL2'] if fila['MATERIAL2']<=fila['PROPMAT']  else fila['PROPMAT'] ), axis = 1)
-    comparativo['SUMA'] = comparativo.apply(lambda fila: (fila['MATERIAL'] + fila['VCORTE'] + fila['VTRATMTO'] + fila['VGAS']), axis = 1)
+    comparativo['SUMA'] = comparativo.apply(lambda fila: (fila['MATERIAL'] + fila['VCORTE'] + fila['VTRATMTO'] + fila['PR_TRANSPORTE']), axis = 1)
     comparativo['SUBTOTAL_NO_VAC'] = comparativo.apply(lambda fila: (fila['QPZ'] * fila['SUMA']), axis = 1)
     comparativo['SUBTOTAL_VAC'] = comparativo.apply(lambda fila: (fila['QPZ'] * fila['VPU']), axis = 1)
     comparativo['DIFERENCIA'] = comparativo.apply(lambda fila: (fila['SUBTOTAL_NO_VAC'] - fila['SUBTOTAL_VAC']), axis = 1)
@@ -99,7 +99,7 @@ if len(comparativo):
     comparativo['COEF_APROV'] = ''
     lista_coef_aprov = list()
 
-    for i in range(len(comparativo)-1):
+    for i in range(len(comparativo)):
         referencia = comparativo.iloc[i]['REF_N']
 
         resultado = dato.existe_archivo(referencia, '.dxf')
@@ -107,7 +107,7 @@ if len(comparativo):
         if resultado:
             ruta_archivo = 'C:\\activa\\PKS\\' + referencia + extension
             coef_aprovechamiento = plano.calcula_area(ruta_archivo)
-            lista_coef_aprov =lista_coef_aprov.append(coef_aprovechamiento)
+            lista_coef_aprov.append(coef_aprovechamiento)
         else:
             lista_coef_aprov =lista_coef_aprov.append(0)
 

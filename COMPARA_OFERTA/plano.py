@@ -164,8 +164,7 @@ def calcula_area(referencia_plano):
                    
                         break
                     elif distancia(punto, final)< 0.01:
-                        with poli.points("xyseb") as points:
-                            points.extend([inicio])
+                        poli.append_vertex(e.dxf.start.xyz)
                         msp.delete_entity(e)
                         if distancia(inicio, poli[0])<0.01 and i>1:  
                             poli.close=1
