@@ -102,8 +102,8 @@ if len(comparativo):
     for i in range(len(comparativo)):
         referencia = comparativo.iloc[i]['REF_N']
         material_buscable = ['PORTE', 'TUBO', 'NULO', 'DIGIT', 'ABONO', 'NO', '~~']
-
-        if comparativo.iloc[i]['MATERIAL'] not in material_buscable:
+        material_pieza = comparativo.iloc[i]['TIPOM']
+        if material_pieza not in material_buscable:
             resultado = dato.existe_archivo(referencia, '.dxf')
 
             if resultado:
@@ -111,8 +111,11 @@ if len(comparativo):
                 coef_aprovechamiento = plano.calcula_area(ruta_archivo)
                 lista_coef_aprov.append(coef_aprovechamiento)
             else:
-                lista_coef_aprov =lista_coef_aprov.append(0)
+                lista_coef_aprov.append(0)
+        else:
+            lista_coef_aprov.append(0)
 
+    comparativo= comparativo.drop(['TIPOM'], axis=1)
     comparativo['COEF_APROV'] = lista_coef_aprov
     comparativo= comparativo.round(2)
     comparativo.rename(columns={'VPZ':'MAT_MAN', 'QPZ':'CANT', 'C_VR':'VERSION'}, inplace=True)
