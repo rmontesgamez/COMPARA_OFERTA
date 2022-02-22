@@ -14,7 +14,7 @@ def calcula_area(referencia_plano):
     except ezdxf.DXFStructureError:
         print(f"Invalid or corrupted DXF file.")
         sys.exit(2)
-    print(doc.header['$ACADVER'])
+    #print(doc.header['$ACADVER'])
     #oc.header['$ACADVER']='AC1018'
     #doc.save(encoding='utf-8')
     #version_dxf=doc.header['$ACADVER']
@@ -69,7 +69,7 @@ def calcula_area(referencia_plano):
 
     def area_poli(polilinea):
         area_dibujo = ezdxf.math.area(polilinea.points())
-        print (area_dibujo)
+        #print (area_dibujo)
         return area_dibujo
 
 
@@ -114,7 +114,7 @@ def calcula_area(referencia_plano):
         for e in msp:
             if i == 0 and not e.dxf.handle in diccionario_elementos:
                 if e.dxftype() == "CIRCLE":
-                    print(e)
+                    #print(e)
                     diccionario_elementos[e.dxf.handle]=math.pi*pow(e.dxf.radius,2)
 
                 #if e.dxftype() == "ARC":
@@ -122,7 +122,7 @@ def calcula_area(referencia_plano):
                     #msp.delete_entity(e)
                     #break
                 if e.dxftype() == "LINE":
-                    print(e)
+                    #print(e)
                     hola = [e.dxf.start.xyz, e.dxf.end.xyz]
                     poli = msp.add_polyline2d(hola)
                     msp.delete_entity(e)
@@ -144,7 +144,7 @@ def calcula_area(referencia_plano):
                     #break
 
                 if e.dxftype() == "LINE":
-                    print(e)
+                    #print(e)
                     inicio = e.dxf.start.xyz+(0,0)
                     final = e.dxf.end.xyz +(0,0)
             
@@ -214,8 +214,8 @@ def calcula_area(referencia_plano):
              is_closed=elemento_exterior.closed,
              flags=1,)            
 
-    print(area_recuadro())
-    print(diccionario_elementos)
+    #print(area_recuadro())
+    #print(diccionario_elementos)
     indice_nest=max(diccionario_elementos.values()) / (area_recuadro())
     print(indice_nest)
 

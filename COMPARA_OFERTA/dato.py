@@ -54,11 +54,12 @@ def pie_de_pagina(archivo, extension, num_pedido, cant_p, cliente_p, pza_pedido_
 
 
 def existe_archivo(nombre, extension):
+ 
 
-    if nombre[:3]=='0000':
+    if nombre[:4]=='0000':
         ruta= '\\\\192.168.8.2\\dxf\\00' + nombre[4:5] +'000\\' + nombre[3:] + extension
     
-    elif nombre[:2] == '000':
+    elif nombre[:3] == '000':
         ruta = '\\\\192.168.8.2\\dxf\\0' + nombre[3:5] +'000\\' + nombre[3:] + extension
    
     else:

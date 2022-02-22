@@ -50,7 +50,7 @@ if os.path.isdir(ruta_carpeta):
     for fichero in directorio.iterdir():
         if fichero.is_file():
             try:
-                print(fichero)
+                #print(fichero)
                 os.remove(fichero)
             except:
                 print("Error en fichero", fichero.name)
