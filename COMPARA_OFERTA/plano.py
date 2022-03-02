@@ -92,7 +92,7 @@ def calcula_area(referencia_plano):
 
 
     for e in msp:
-        print(e.dxf.color)
+        #print(e.dxf.color)
         if e.dxf.layer in lista_capas:
             msp.delete_entity(e)
         else:
@@ -106,7 +106,7 @@ def calcula_area(referencia_plano):
         #print(e.dxf.radius)
         #print(e.start_point)
         #print(e.end_point)
-        if e.dxf.radius>1:
+        if e.dxf.radius>2:
         
             for inicio_segmento in e.flattening(1):
                 #print(rrr)
