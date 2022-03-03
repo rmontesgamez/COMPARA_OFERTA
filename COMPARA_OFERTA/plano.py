@@ -19,15 +19,7 @@ def calcula_area(referencia_plano):
     #doc.save(encoding='utf-8')
     #version_dxf=doc.header['$ACADVER']
 
-    try:
-        doc = ezdxf.readfile(referencia_plano)
-    except IOError:
-        print(f"Not a DXF file or a generic I/O error.")
-        sys.exit(1)
-    except ezdxf.DXFStructureError:
-        print(f"Invalid or corrupted DXF file.")
-        sys.exit(2)
-
+  
 
 
 
