@@ -91,13 +91,18 @@ def calcula_area(referencia_plano):
 
 
 
-    for e in msp:
-        #print(e.dxf.color)
-        if e.dxf.layer in lista_capas:
-            msp.delete_entity(e)
-        else:
-            if e.dxf.color !=256:
-                msp.delete_entity(e)
+    while len(msp)>len(lista_elementos):
+       for e in msp:
+           if e.dxf.handle not in lista_elementos:
+               print(e.dxf.color)
+               if e.dxf.layer in lista_capas:
+                   msp.delete_entity(e)
+                   break
+               elif e.dxf.color !=256:
+                   msp.delete_entity(e)
+                   break
+               else:
+                    lista_elementos.append(e.dxf.handle)
 
    
 
