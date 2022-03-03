@@ -80,8 +80,11 @@ def existe_archivo(nombre, extension):
             except:
                 print('ARCHIVO NO MOVIDO:', nombre)
 
-        else: 
+        else:
+            print('NO EXISTE ARCHIVO:', nombre)
             return False
+    else:
+        return True
 
 def borrador_archivos():
     directorios=['P:\\Personal Láser Guadalquivir\\RAFA\PLEGADO\\TEMP', 'P:\\Personal Láser Guadalquivir\\RAFA\PLEGADO\\PLANOS']

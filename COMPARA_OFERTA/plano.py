@@ -40,6 +40,8 @@ def calcula_area(referencia_plano):
             c = tuple(map(lambda x, y: round(y - x, 3), punto_1, punto_2.format('xyz')))
         elif type(punto_2) == tuple:
             c = tuple(map(lambda x, y: round(y - x, 3), punto_1.format('xyz'), punto_2))
+        else:
+            c = tuple(map(lambda x, y: round(y - x, 3), punto_1, punto_2))
 
 
         """if punto_1.dxftype()=='VERTEX':
@@ -81,6 +83,7 @@ def calcula_area(referencia_plano):
     z=0
     elementos = len(msp)
     lista_area = []
+    lista_elementos=[]
     diccionario_elementos={}
     lista_capas=("GREEN", "BLACK", "YELLOW", "RED")
 
@@ -104,7 +107,7 @@ def calcula_area(referencia_plano):
                else:
                     lista_elementos.append(e.dxf.handle)
 
-   while msp.query("ARC"):
+    while msp.query("ARC"):
         for e in msp.query("ARC"):
             #print(e.dxf.radius)
             #print(e.start_point)
