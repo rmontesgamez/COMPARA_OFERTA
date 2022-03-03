@@ -94,7 +94,7 @@ def calcula_area(referencia_plano):
     while len(msp)>len(lista_elementos):
        for e in msp:
            if e.dxf.handle not in lista_elementos:
-               print(e.dxf.color)
+               #print(e.dxf.color)
                if e.dxf.layer in lista_capas:
                    msp.delete_entity(e)
                    break
@@ -104,27 +104,28 @@ def calcula_area(referencia_plano):
                else:
                     lista_elementos.append(e.dxf.handle)
 
-   
-
-
-    for e in msp.query("ARC"):
-        #print(e.dxf.radius)
-        #print(e.start_point)
-        #print(e.end_point)
-        if e.dxf.radius>2:
+   while msp.query("ARC"):
+        for e in msp.query("ARC"):
+            #print(e.dxf.radius)
+            #print(e.start_point)
+            #print(e.end_point)
+            if e.dxf.radius>4 and distancia(e.start_point, e.end_point)>1:
         
-            for inicio_segmento in e.flattening(1):
-                #print(rrr)
-                if ezdxf.math.is_close_points(inicio_segmento, e.start_point,0.01):
-                    p1=inicio_segmento
+                for inicio_segmento in e.flattening(1):
+                    #print(rrr)
+                    if ezdxf.math.is_close_points(inicio_segmento, e.start_point,0.01):
+                        p1=inicio_segmento
                 
-                else:
-                    msp.add_line(p1, inicio_segmento)
-                    p1=inicio_segmento
-        
-        else :
-            msp.add_line(e.start_point, e.end_point)
-            msp.delete_entity(e)
+                    else:
+                        msp.add_line(p1, inicio_segmento)
+                        p1=inicio_segmento
+                msp.delete_entity(e)
+            else :
+                msp.add_line(e.start_point, e.end_point)
+                msp.delete_entity(e)
+            #doc.saveas("new_name.dxf")
+
+    
 
     while len(msp)>=len(diccionario_elementos):
         z+=1
