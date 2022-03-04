@@ -145,5 +145,20 @@ if len(comparativo):
         ws.conditional_formatting.add(campo,
             FormulaRule(formula=[(letra + '2>=1')], fill=greenfill))
 
+    letra = 'S'
+
+    campo = letra + '2:' + letra + str(longitud)
+
+    relleno_amarillo = PatternFill(start_color='CCFF66',
+                       end_color='CCFF66',
+                       fill_type='solid')
+
+    ws.conditional_formatting.add(campo,
+            FormulaRule(formula=[(letra +'2<0.77')], fill=relleno_amarillo))
+        
+
+
+
+
     wb.save(ruta2)
     #volcador.correo(ruta2,'RESP. AUTOMATICA', 'RESUMEN.xlsx', destino)
