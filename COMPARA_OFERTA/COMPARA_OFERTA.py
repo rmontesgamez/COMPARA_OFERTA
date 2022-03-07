@@ -88,12 +88,15 @@ if len(comparativo):
 
     #comparativo['TRAT'] = comparativo.apply(lambda fila: (0 if fila['VTRATMTO']<= 0 else fila['VTRATMTO'] ), axis = 1)
     comparativo= comparativo.fillna(0)
+    #comparativo= comparativo.drop(['C_VR'], axis=1)
+    comparativo['C_VR'] = comparativo.apply(lambda fila: (0 if fila['OFERTA']>0  else fila['OFERTA']), axis = 1)
     comparativo['MATERIAL2'] = comparativo.apply(lambda fila: (10000000000 if fila['VPZ']<=0  else fila['VPZ'] ), axis = 1)
     comparativo['MATERIAL'] = comparativo.apply(lambda fila: (fila['MATERIAL2'] if fila['MATERIAL2']<=fila['PROPMAT']  else fila['PROPMAT'] ), axis = 1)
     comparativo['SUMA'] = comparativo.apply(lambda fila: (fila['MATERIAL'] + fila['VCORTE'] + fila['VTRATMTO'] + fila['PR_TRANSPORTE'] + fila['VGAS']), axis = 1)
     comparativo['SUBTOTAL_NO_VAC'] = comparativo.apply(lambda fila: (fila['QPZ'] * fila['SUMA']), axis = 1)
     comparativo['SUBTOTAL_VAC'] = comparativo.apply(lambda fila: (fila['QPZ'] * fila['VPU']), axis = 1)
     comparativo['DIFERENCIA'] = comparativo.apply(lambda fila: (fila['SUBTOTAL_NO_VAC'] - fila['SUBTOTAL_VAC']), axis = 1)
+    
     comparativo= comparativo.drop(['MATERIAL2'], axis=1)
     
     comparativo['COEF_APROV'] = ''
@@ -118,7 +121,7 @@ if len(comparativo):
     comparativo= comparativo.drop(['TIPOM'], axis=1)
     comparativo['COEF_APROV'] = lista_coef_aprov
     comparativo= comparativo.round(2)
-    comparativo.rename(columns={'VPZ':'MAT_MAN', 'QPZ':'CANT', 'C_VR':'VERSION'}, inplace=True)
+    comparativo.rename(columns={'VPZ':'MAT_MAN', 'QPZ':'CANT'}, inplace=True)
 
 
     volcador.volcado_con_pandas(comparativo,'OFERTA',ruta2, "b" )
