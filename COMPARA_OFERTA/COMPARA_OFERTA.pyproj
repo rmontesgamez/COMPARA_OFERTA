@@ -11,6 +11,8 @@
     <OutputPath>.</OutputPath>
     <Name>COMPARA_OFERTA</Name>
     <RootNamespace>COMPARA_OFERTA</RootNamespace>
+    <InterpreterId>
+    </InterpreterId>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <DebugSymbols>true</DebugSymbols>

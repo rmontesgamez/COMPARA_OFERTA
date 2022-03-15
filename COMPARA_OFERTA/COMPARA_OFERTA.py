@@ -165,3 +165,4 @@ if len(comparativo):
 
     wb.save(ruta2)
     #volcador.correo(ruta2,'RESP. AUTOMATICA', 'RESUMEN.xlsx', destino)
+    os.startfile(ruta2)
