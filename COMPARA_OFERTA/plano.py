@@ -77,7 +77,7 @@ def calcula_area(referencia_plano):
     lista_area = []
     lista_elementos=[]
     diccionario_elementos={}
-    lista_capas=("GREEN", "BLACK", "YELLOW", "RED")
+    lista_capas=("GREEN", "BLACK", "YELLOW", "RED", "CYAN")
 
     if area_recuadro()>580:
 
@@ -203,8 +203,10 @@ def calcula_area(referencia_plano):
                             pass
 
         for elemento in msp.query("POLYLINE" or "CIRCLE"):
-            if elemento.dxf.handle == max(diccionario_elementos, key=diccionario_elementos.get):
-                elemento_exterior=elemento
+            if len(diccionario_elementos)>0:
+                if elemento.dxf.handle == max(diccionario_elementos, key=diccionario_elementos.get):
+                    elemento_exterior=elemento
+            
         
                 #ruta=ezdxf.path.make_path(elemento_exterior)
                 #print (ruta)
@@ -238,7 +240,12 @@ def calcula_area(referencia_plano):
 
         #print(area_recuadro())
         #print(diccionario_elementos)
-        indice_nest=max(diccionario_elementos.values()) / (area_recuadro())
+        if len(diccionario_elementos):
+            indice_nest=max(diccionario_elementos.values()) / (area_recuadro())
+            
+        else:
+            indice_nest=0
+        
         print(indice_nest)
 
         return indice_nest
