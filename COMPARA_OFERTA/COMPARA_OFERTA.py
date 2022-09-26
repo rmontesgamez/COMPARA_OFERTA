@@ -82,10 +82,6 @@ extension = '.dxf'
 
 
 if len(comparativo):
-    
-
-
-
     #comparativo['TRAT'] = comparativo.apply(lambda fila: (0 if fila['VTRATMTO']<= 0 else fila['VTRATMTO'] ), axis = 1)
     comparativo= comparativo.fillna(0)
     #comparativo= comparativo.drop(['C_VR'], axis=1)
