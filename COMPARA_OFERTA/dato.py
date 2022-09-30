@@ -1,17 +1,17 @@
-import pandas as pd
-import openpyxl as op
-import shutil
-#from PyPDF2 import PdfFileWriter, PdfFileReader
-import io
+#import pandas as pd
+#import openpyxl as op
 #from reportlab.pdfgen import canvas
 #from reportlab.lib.pagesizes import A4
+#from PyPDF2 import PdfFileWriter, PdfFileReader
+import shutil
+import io
 import os
 
 
 
 def pie_de_pagina(archivo, extension, num_pedido, cant_p, cliente_p, pza_pedido_p):
     
-    nombre_pdf_original = 'P:\\Personal Láser Guadalquivir\\RAFA\PLEGADO\\TEMP\\' + archivo + 'int' + extension # nombre original
+    nombre_pdf_original = 'P:\\Personal Láser Guadalquivir\\RAFA\\PLEGADO\\TEMP\\' + archivo + 'int' + extension # nombre original
     #nombre_nuevo="390911r.pdf" # nombre intermedio para hacer pruebas en la propia carpeta
 
     #os.rename(nombre_pdf_original, nombre_nuevo)
@@ -87,7 +87,7 @@ def existe_archivo(nombre, extension):
         return True
 
 def borrador_archivos():
-    directorios=['P:\\Personal Láser Guadalquivir\\RAFA\PLEGADO\\TEMP', 'P:\\Personal Láser Guadalquivir\\RAFA\PLEGADO\\PLANOS']
+    directorios=['P:\\Personal Láser Guadalquivir\\RAFA\\PLEGADO\\TEMP', 'P:\\Personal Láser Guadalquivir\\RAFA\\PLEGADO\\PLANOS']
 
     for directorio_a_borrar in directorios:
         with os.scandir(directorio_a_borrar) as entries:

@@ -2,17 +2,17 @@
 import ezdxf
 import math
 from ezdxf import bbox
-from ezdxf import groupby
+#from ezdxf import groupby
 
 
 def calcula_area(referencia_plano):
     try:
         doc = ezdxf.readfile(referencia_plano)
     except IOError:
-        print(f"Not a DXF file or a generic I/O error.")
+        print("Not a DXF file or a generic I/O error.")
         sys.exit(1)
     except ezdxf.DXFStructureError:
-        print(f"Invalid or corrupted DXF file.")
+        print("Invalid or corrupted DXF file.")
         sys.exit(2)
     #print(doc.header['$ACADVER'])
     #oc.header['$ACADVER']='AC1018'
@@ -91,19 +91,19 @@ def calcula_area(referencia_plano):
 
 
         while len(msp)>len(lista_elementos):
-           for e in msp:
-               if e.dxf.handle not in lista_elementos:
+            for e in msp:
+                if e.dxf.handle not in lista_elementos:
                    #print(e.dxf.color)
-                   if e.dxf.layer in lista_capas:
-                       msp.delete_entity(e)
+                    if e.dxf.layer in lista_capas:
+                        msp.delete_entity(e)
                        
-                   elif e.dxf.color !=256:
-                       if e.dxf.color !=7:
-                           msp.delete_entity(e)
-                       else:
-                           lista_elementos.append(e.dxf.handle)
+                    elif e.dxf.color !=256:
+                        if e.dxf.color !=7:
+                            msp.delete_entity(e)
+                        else:
+                            lista_elementos.append(e.dxf.handle)
                            
-                   else:
+                    else:
                         lista_elementos.append(e.dxf.handle)
 
         while msp.query("ARC"):

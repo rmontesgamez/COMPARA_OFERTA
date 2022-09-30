@@ -1,19 +1,19 @@
-import pyodbc
+#import pyodbc
 import openpyxl as op
 import datetime
 from consulta import consulta
 import volcador
-import pandas as pd
+#import pandas as pd
 import dato
 import os
-from openpyxl import Workbook
+#from openpyxl import Workbook
 import plano
 from pathlib import Path
 
-from openpyxl.styles import Color, PatternFill, Font, Border
+from openpyxl.styles import PatternFill #, Font, Border, Color
 #from openpyxl.styles.differential import DifferentialStyle
-from openpyxl.formatting.rule import ColorScaleRule, CellIsRule, FormulaRule
-from openpyxl.formatting import Rule
+from openpyxl.formatting.rule import FormulaRule #, CellIsRule, ColorScaleRule
+#from openpyxl.formatting import Rule
 
 
 def datos_piezas(tipo, numero_cliente, estado_pedido):

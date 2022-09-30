@@ -1,7 +1,7 @@
 
 import openpyxl as op
 import smtplib
-import imghdr
+#import imghdr
 import pandas as pd
 
 
@@ -27,13 +27,13 @@ def ofertado(libro,listado, hoja):
             row2[5]=row2[5].strftime('%d/%m/%Y')
 
             if row2[2]==0:
-               row2[2]="Por revisar"
+                row2[2]="Por revisar"
             elif row2[2]==2:
-               row2[2]="Enviado"
+                row2[2]="Enviado"
             elif row2[2]==3:
-               row2[2]="Rechazado"
+                row2[2]="Rechazado"
             elif row2[2]==1:
-               row2[2]="Por enviar"
+                row2[2]="Por enviar"
             elif row2[2]==4:
                 row2[2]="Aceptado"
             
@@ -140,7 +140,7 @@ def correo(archivo, asunto, nombre_archivo, destinatario):
     for file in files:
         with open(file, 'rb') as f:
             file_data = f.read()
-            file_name = f.name
+            #file_name = f.name
         newMessage.add_attachment(file_data, maintype='application', subtype='octet-stream', filename=nombre_archivo)
     with smtplib.SMTP('smtp.gmail.com', 587) as smtp:
         smtp.starttls()
@@ -177,7 +177,7 @@ def volcado_2h_pandas(listado1, hoja1, listado2, hoja2, ruta, columna_celda):
 
 def volcado_reutiliza_excel(listado, hoja, ruta):
     datos = pd.DataFrame(listado)
-    book = op.load_workbook("P:\\Personal Láser Guadalquivir\\RAFA\PLEGADO\\RESUMEN1.xlsm", keep_vba = True) # Load existing .xlsm file
+    book = op.load_workbook("P:\\Personal Láser Guadalquivir\\RAFA\\PLEGADO\\RESUMEN1.xlsm", keep_vba = True) # Load existing .xlsm file
 
     with pd.ExcelWriter(ruta, engine='openpyxl') as writer: # open a writer instance with the filename of the 
     
@@ -191,7 +191,7 @@ def volcado_reutiliza_excel(listado, hoja, ruta):
 
         writer.save()
 
-    book = op.load_workbook("P:\\Personal Láser Guadalquivir\\RAFA\PLEGADO\\RESUMEN.xlsm", keep_vba = True)
+    book = op.load_workbook("P:\\Personal Láser Guadalquivir\\RAFA\\PLEGADO\\RESUMEN.xlsm", keep_vba = True)
     book.save(ruta)
     
     
